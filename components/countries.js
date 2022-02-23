@@ -1,3 +1,6 @@
+import { useQuery, gql } from "@apollo/client";
+import utilStyles from "../styles/utils.module.css"
+
 const QUERY = gql`
   query Countries {
     countries {
