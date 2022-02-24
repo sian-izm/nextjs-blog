@@ -4,32 +4,26 @@ import utilStyles from '../styles/utils.module.css'
 import Link from 'next/link'
 import { getSortedPostsData } from '../lib/posts'
 import Date from '../components/date'
-import client from '../apollo-client'
-import { gql } from '@apollo/client'
+import { GetStaticProps } from 'next'
 
-export async function getStaticProps () {
+export const getStaticProps: GetStaticProps = async () => {
   const allPostsData = getSortedPostsData()
-  const { data } = await client.query({
-    query: gql`
-      query Countries {
-        countries {
-          code
-          name
-          emoji
-        }
-      }
-    `,
-  });
-
   return {
     props: {
       allPostsData,
-      countries: data.countries.slice(0, 4),
     },
   };
 }
 
-export default function Home({ allPostsData, countries }) {
+export default function Home({
+  allPostsData
+}: {
+  allPostsData: {
+    date: string
+    title: string
+    id: string
+  }[]
+}) {
   return (
     <Layout home>
       <Head>
