@@ -27,6 +27,12 @@ function login(username, password) {
     });
 }
 
+function logout() {
+  localStorage.removeItem('user');
+  userSubject.next(null);
+  Router.push('/account/login');
+}
+
 function register(user) {
   return fetchWrapper.post(`${baseUrl}/register`, user);
 }
@@ -53,4 +59,9 @@ function update(id, params) {
       }
       return x;
     })
+}
+
+// prefixed with underscored because delete is a reserved word in javascript
+function _delete(id) {
+  return fetchWrapper.delete(`${baseUrl}/${id}`);
 }

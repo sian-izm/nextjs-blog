@@ -4,7 +4,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import { userService } from '../../services/user.service';
 import alertService from '../../services/alert.service';
-import { Layout } from '../../components/layout';
+import { Layout } from '../../components/account/layout';
 import Link from '../../components/link';
 
 export default Login;
@@ -41,7 +41,7 @@ function Login() {
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="form-group">
               <label>Username</label>
-              <input name="username" type="text" {...register('username') className={`form-control ${errors.username ? 'is-invalid' : ''}`} />
+              <input name="username" type="text" {...register('username')} className={`form-control ${errors.username ? 'is-invalid' : ''}`} />
               <div className="invalid-feedback">{errors.username?.message}</div>
               </div>
               <div className="form-group">
@@ -53,7 +53,7 @@ function Login() {
               {formState.isSubmitting && <span className="spinner-border spinner-border-sm mr-1"></span>}
               Login
             </button>
-            <Link href="/account.register" className="btn btn-link">Register</Link>
+            <Link href="/account/register" className="btn btn-link">Register</Link>
           </form>
         </div>
       </div>

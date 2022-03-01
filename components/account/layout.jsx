@@ -1,4 +1,5 @@
-import { userService } from 'services';
+import { useEffect } from 'react';
+import { userService } from '../../services/user.service';
 import { useRouter } from "next/router";
 
 export { Layout };
