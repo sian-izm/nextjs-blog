@@ -1,8 +1,9 @@
 import getConfig from "next/config";
 import { BehaviorSubject } from 'rxjs';
+import { fetchWrapper } from '../helpers/fetch-wrapper';
 
 const { publicRuntimeConfig } = getConfig();
-const baseUrl = `${publicRuntimeConfig.apiUrl}/users`;
+const baseUrl = `${publicRuntimeConfig.apiUrl}`;
 const userSubject = new BehaviorSubject(process.browser && JSON.parse(localStorage.getItem('user')));
 
 export const userService = {
@@ -18,7 +19,7 @@ export const userService = {
 };
 
 function login(username, password) {
-  return fetchWrapper.post(`${baseUrl}/authenticate`, { username, password })
+  return fetchWrapper.post(`${baseUrl}/signup`, { username, password })
     .then(user => {
       userSubject.next(user);
       localStorage.setItem('user', JSON.stringify(user));
