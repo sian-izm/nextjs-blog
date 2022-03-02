@@ -5,7 +5,7 @@ import * as Yup from 'yup';
 import { userService } from '../../services/user.service';
 import alertService from '../../services/alert.service';
 import { Layout } from '../../components/account/layout';
-import Link from '../../components/link';
+import { Link } from '../../components/link';
 
 export default Login;
 
