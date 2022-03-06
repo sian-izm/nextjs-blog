@@ -12,10 +12,11 @@ import utilStyles from "../styles/utils.module.css"
 
 const QUERY = gql`
 mutation { 
-  createCat(createCat:{id:1,age:2,breed:'hoge',name:'HOGE'}) {
+  createCat(createCat:{id:1,age:2,breed:"hoge",name:"HOGE"}) {
       name
       age
     }
+  }
 `;
 
 export default function CreateCat() {
@@ -37,8 +38,8 @@ export default function CreateCat() {
       <form
         onSubmit={e => {
           e.preventDefault();
-          // createCat({ variables: { id: 1, age: 2, breed: 'MIKE', name: input.value }});
-          createCat({ variables: { id: 1, age: 2, breed: 'MIKE', name: input.value }});
+          // createCat({ variables: { id: 1, age: 2, breed: "MIKE", name: input.value }});
+          createCat({ variables: { id: 1, age: 2, breed: "MIKE", name: input.value }});
           input.value = '';
         }}
         >
