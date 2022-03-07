@@ -1,5 +1,6 @@
 import { useQuery, gql, useMutation } from "@apollo/client";
 import utilStyles from "../styles/utils.module.css"
+import EventEmitter from "events";
 
 // const QUERY = gql`
 //   mutation CreateCat($id: number, $age: number, $breed: string, $name: string) {
@@ -31,15 +32,15 @@ export default function CreateCat() {
     return null;
   }
 
+  const handleSubmit = event => {
+    event.preventDefault();
+    createCat({ variables: { id: 3, age: 2, breed: "MIKE", name: input.value }});
+    input.value = '';
+  }
+
   return (
     <>
-      <form
-        onSubmit={e => {
-          e.preventDefault();
-          createCat({ variables: { id: 3, age: 2, breed: "MIKE", name: input.value }});
-          input.value = '';
-        }}
-        >
+      <form onSubmit={handleSubmit} >
           <input 
             ref={node => {
               input = node;
