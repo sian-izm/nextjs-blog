@@ -11,8 +11,8 @@ import utilStyles from "../styles/utils.module.css"
 //   `;
 
 const QUERY = gql`
-mutation { 
-  createCat(createCat:{id:1,age:2,breed:"hoge",name:"HOGE"}) {
+mutation createCat($name: String!) {
+  createCat(createCat:{id:5,age:2,breed:"hoge",name: $name}) {
       name
       age
     }
@@ -31,15 +31,12 @@ export default function CreateCat() {
     return null;
   }
 
-  //const cat = data.createCat;
-
   return (
     <>
       <form
         onSubmit={e => {
           e.preventDefault();
-          // createCat({ variables: { id: 1, age: 2, breed: "MIKE", name: input.value }});
-          createCat({ variables: { id: 1, age: 2, breed: "MIKE", name: input.value }});
+          createCat({ variables: { id: 3, age: 2, breed: "MIKE", name: input.value }});
           input.value = '';
         }}
         >
