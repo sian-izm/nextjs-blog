@@ -1,3 +1,4 @@
+import React from 'react';
 import { useQuery, gql, useMutation } from "@apollo/client";
 import utilStyles from "../styles/utils.module.css"
 import EventEmitter from "events";
@@ -32,20 +33,18 @@ export default function CreateCat() {
     return null;
   }
 
+  const inputRef = React.createRef<HTMLInputElement>()
+
   const handleSubmit = event => {
     event.preventDefault();
-    createCat({ variables: { id: 3, age: 2, breed: "MIKE", name: input.value }});
-    input.value = '';
+    createCat({ variables: { id: 3, age: 2, breed: "MIKE", name: inputRef.current.value }});
+    inputRef.current.value = '';
   }
 
   return (
     <>
       <form onSubmit={handleSubmit} >
-          <input 
-            ref={node => {
-              input = node;
-            }}
-          />
+          <input ref={inputRef} type='text' name='name' />
           <button type="submit">Create Cat</button>
         </form>
     </>
