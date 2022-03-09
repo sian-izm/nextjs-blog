@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useQuery, gql, useMutation } from "@apollo/client";
 import utilStyles from "../styles/utils.module.css"
 import EventEmitter from "events";
@@ -22,7 +22,8 @@ mutation createCat($name: String!) {
 `;
 
 export default function CreateCat() {
-  let input;
+  const [name, setName] = useState('');
+
   const [createCat, { data, loading, error }] = useMutation(QUERY);
 
   if (loading) {
@@ -33,20 +34,21 @@ export default function CreateCat() {
     return null;
   }
 
-  const inputRef = React.createRef<HTMLInputElement>()
-
   const handleSubmit = event => {
     event.preventDefault();
-    createCat({ variables: { id: 3, age: 2, breed: "MIKE", name: inputRef.current.value }});
-    inputRef.current.value = '';
+    createCat({ variables: { id: 3, age: 2, breed: "MIKE", name: name }});
   }
+
+  const handleNameChange = (event) => {
+    setName(event.target.value);
+  };
 
   return (
     <>
       <form onSubmit={handleSubmit} >
-          <input ref={inputRef} type='text' name='name' />
-          <button type="submit">Create Cat</button>
-        </form>
+        <input type='text' value={name} onChange={handleNameChange} />
+        <button type="submit">Create Cat</button>
+      </form>
     </>
   );
 }
