@@ -3,18 +3,9 @@ import { useQuery, gql, useMutation } from "@apollo/client";
 import utilStyles from "../styles/utils.module.css"
 import EventEmitter from "events";
 
-// const QUERY = gql`
-//   mutation CreateCat($id: number, $age: number, $breed: string, $name: string) {
-//       createCat(createCat:{id:$id,age:$age,breed:$breed,name:$name}) {
-//         name
-//         age
-//       }
-//     }
-//   `;
-
 const QUERY = gql`
-mutation createCat($name: String!) {
-  createCat(createCat:{id:5,age:2,breed:"hoge",name: $name}) {
+mutation createCat($name: String!, $breed: String!) {
+  createCat(createCat:{id:5,age:2,breed: $breed,name: $name}) {
       name
       age
     }
@@ -22,7 +13,10 @@ mutation createCat($name: String!) {
 `;
 
 export default function CreateCat() {
-  const [name, setName] = useState('');
+  const [values, setValues] = useState({
+    name: '',
+    breed: '',
+  });
 
   const [createCat, { data, loading, error }] = useMutation(QUERY);
 
@@ -36,17 +30,23 @@ export default function CreateCat() {
 
   const handleSubmit = event => {
     event.preventDefault();
-    createCat({ variables: { id: 3, age: 2, breed: "MIKE", name: name }});
+    console.log(values);
+    createCat({ variables: { id: 3, age: 2, breed: values.breed, name: values.name }});
   }
 
-  const handleNameChange = (event) => {
-    setName(event.target.value);
+  const handleChange: (name) => (event) => void = (name) => (event) => {
+    const newValues = {
+      ...values,
+      [name]: event.target.value
+    }
+    setValues(newValues);
   };
 
   return (
     <>
       <form onSubmit={handleSubmit} >
-        <input type='text' value={name} onChange={handleNameChange} />
+        <input type='text' value={values.name} onChange={handleChange('name')} />
+        <input type='text' value={values.breed} onChange={handleChange('breed')} />
         <button type="submit">Create Cat</button>
       </form>
     </>
