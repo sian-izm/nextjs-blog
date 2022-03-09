@@ -4,8 +4,8 @@ import utilStyles from "../styles/utils.module.css"
 import EventEmitter from "events";
 
 const QUERY = gql`
-mutation createCat($name: String!, $breed: String!) {
-  createCat(createCat:{id:5,age:2,breed: $breed,name: $name}) {
+mutation createCat($name: String!, $breed: String!, $age: Int!) {
+  createCat(createCat:{id:5,age:1,breed: $breed,name: $name}) {
       name
       age
     }
@@ -16,6 +16,7 @@ export default function CreateCat() {
   const [values, setValues] = useState({
     name: '',
     breed: '',
+    age: 0,
   });
 
   const [createCat, { data, loading, error }] = useMutation(QUERY);
@@ -31,7 +32,7 @@ export default function CreateCat() {
   const handleSubmit = event => {
     event.preventDefault();
     console.log(values);
-    createCat({ variables: { id: 3, age: 2, breed: values.breed, name: values.name }});
+    createCat({ variables: { id: 3, age: values.age, breed: values.breed, name: values.name }});
   }
 
   const handleChange: (name) => (event) => void = (name) => (event) => {
@@ -47,6 +48,7 @@ export default function CreateCat() {
       <form onSubmit={handleSubmit} >
         <input type='text' value={values.name} onChange={handleChange('name')} />
         <input type='text' value={values.breed} onChange={handleChange('breed')} />
+        <input type='number' value={values.age} onChange={handleChange('age')} />
         <button type="submit">Create Cat</button>
       </form>
     </>
