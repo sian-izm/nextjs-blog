@@ -5,15 +5,21 @@ import EventEmitter from "events";
 
 const QUERY = gql`
 mutation createCat($name: String!, $breed: String!, $age: Int!) {
-  createCat(createCat:{id:5,age:1,breed: $breed,name: $name}) {
+  createCat(createCat:{age: $age,breed: $breed,name: $name}) {
       name
       age
     }
   }
 `;
 
+interface CreateCatInterface {
+  name: string;
+  breed: string;
+  age: number;
+}
+
 export default function CreateCat() {
-  const [values, setValues] = useState({
+  const [values, setValues] = useState<CreateCatInterface>({
     name: '',
     breed: '',
     age: 0,
@@ -32,7 +38,7 @@ export default function CreateCat() {
   const handleSubmit = event => {
     event.preventDefault();
     console.log(values);
-    createCat({ variables: { id: 3, age: values.age, breed: values.breed, name: values.name }});
+    createCat({ variables: { age: parseInt(values.age), breed: values.breed, name: values.name }});
   }
 
   const handleChange: (name) => (event) => void = (name) => (event) => {
