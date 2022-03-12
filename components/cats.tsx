@@ -4,6 +4,7 @@ import utilStyles from "../styles/utils.module.css"
 const QUERY = gql`
   query {
     cats {
+      id
       name
       breed
       age
@@ -28,7 +29,7 @@ export default function Cats() {
     <section className={`${utilStyles.heading} ${utilStyles.padding1px}`}>
       {cats.map((cat) => (
         <li className={utilStyles.listItem} key={cat.name}>
-          <h3>{cat.name}</h3>
+          <h3>{cat.id}:{cat.name}</h3>
           <p>
             Breed: {cat.breed}
           </p>
