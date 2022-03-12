@@ -38,7 +38,7 @@ export default function CreateCat() {
   const handleSubmit = event => {
     event.preventDefault();
     console.log(values);
-    createCat({ variables: { age: parseInt(values.age), breed: values.breed, name: values.name }});
+    createCat({ variables: { age: Number(values.age), breed: values.breed, name: values.name }});
   }
 
   const handleChange: (name) => (event) => void = (name) => (event) => {
