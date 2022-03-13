@@ -51,10 +51,13 @@ export default function CreateCat() {
 
   return (
     <>
+      <h2>Create New Cat</h2>
       <form onSubmit={handleSubmit} >
-        <input type='text' value={values.name} onChange={handleChange('name')} />
-        <input type='text' value={values.breed} onChange={handleChange('breed')} />
-        <input type='number' value={values.age} onChange={handleChange('age')} />
+        Name: <input type='text' value={values.name} onChange={handleChange('name')} />
+        <br />
+        Breed: <input type='text' value={values.breed} onChange={handleChange('breed')} />
+        <br />
+        Age: <input type='number' value={values.age} onChange={handleChange('age')} />
         <button type="submit">Create Cat</button>
       </form>
     </>
