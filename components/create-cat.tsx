@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
-import { useQuery, gql, useMutation } from "@apollo/client";
-import utilStyles from "../styles/utils.module.css"
-import EventEmitter from "events";
+import { gql, useMutation } from "@apollo/client";
 
 const QUERY = gql`
 mutation createCat($name: String!, $breed: String!, $age: Int!) {
