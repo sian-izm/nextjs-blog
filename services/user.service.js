@@ -6,19 +6,6 @@ const { publicRuntimeConfig } = getConfig();
 const baseUrl = `${publicRuntimeConfig.apiUrl}`;
 const userSubject = new BehaviorSubject(process.browser && JSON.parse(localStorage.getItem('user')));
 
-import { useQuery, gql } from "@apollo/client";
-import utilStyles from "../styles/utils.module.css"
-
-const QUERY = gql`
-  mutation {
-    signup(input: {id:1,name:"Huge",password:"UpdateMe"}) {
-      name
-      breed
-      age
-    }
-  }
-  `;
-
 export const userService = {
   user: userSubject.asObservable(),
   get userValue () { return userSubject.value },
@@ -32,17 +19,13 @@ export const userService = {
 };
 
 function login(username, password) {
-  const { data, loading, error } = useQuery(QUERY);
-  userSubject.next(data)
-  localStorage.setItem('user', JSON.stringify(data));
+  return fetchWrapper.post(`${baseUrl}/signup`, { username, password })
+    .then(user => {
+      userSubject.next(user);
+      localStorage.setItem('user', JSON.stringify(user));
 
-  // return fetchWrapper.post(`${baseUrl}/signup`, { username, password })
-  //   .then(user => {
-  //     userSubject.next(user);
-  //     localStorage.setItem('user', JSON.stringify(user));
-
-  //     return user;
-  // });
+      return user;
+  });
 }
 
 function logout() {
