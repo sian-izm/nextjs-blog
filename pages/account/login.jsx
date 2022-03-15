@@ -6,6 +6,7 @@ import { userService } from '../../services/user.service';
 import { alertService } from '../../services/alert.service';
 import { Layout } from '../../components/account/layout';
 import { Link } from '../../components/link';
+import { useEffect } from 'react';
 
 export default Login;
 
@@ -23,14 +24,16 @@ function Login() {
   const { register, handleSubmit, formState } = useForm(formOptions);
   const { errors } = formState;
 
-  function onSubmit({ username, password }) {
-    return userService.login(username, password)
-      .then(() => {
-        // get return url from query parameters or default to '/'
-        const returnUrl = router.query.returnUrl || '/';
-        router.push(returnUrl);
-      })
-      .catch(alertService.error);
+  const onSubmit = () => {
+    router.replace('/') // ここでリダイレクト
+
+    // return userService.login(username, password)
+    //   .then(() => {
+    //     // get return url from query parameters or default to '/'
+    //     const returnUrl = router.query.returnUrl || '/';
+    //     router.push(returnUrl);
+    //   })
+    //   .catch(alertService.error);
   }
 
   return (
