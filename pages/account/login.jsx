@@ -17,7 +17,6 @@ const QUERY = gql`
   `;
 
 export default function Login() {
-  console.log('Login called');
   const router = useRouter();
 
   // from validation rules
