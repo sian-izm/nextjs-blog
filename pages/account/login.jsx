@@ -5,7 +5,9 @@ import * as Yup from 'yup';
 import { alertService } from '../../services/alert.service';
 import { Layout } from '../../components/account/layout';
 import { Link } from '../../components/link';
+import { useEffect } from 'react';
 import { gql, useMutation } from '@apollo/client';
+import { userService } from '../../services/user.service';
 
 const QUERY = gql`
   mutation signup($name: String!, $password: String!) {
@@ -17,6 +19,7 @@ const QUERY = gql`
   `;
 
 export default function Login() {
+  console.log('Login called');
   const router = useRouter();
 
   // from validation rules
@@ -40,8 +43,13 @@ export default function Login() {
   }
   if (data) {
     console.log(data);
-    localStorage.setItem('user', JSON.stringify(data.signup.id));
-    router.replace('/')
+    return userService.login(data.signup.name, "hogehoge")
+      .then(() => {
+        // get return url from query parameters or default to '/'
+        const returnUrl = router.query.returnUrl || '/';
+        router.push(returnUrl);
+      })
+      .catch(alertService.error);
   }
 
   const onSubmit = ({username, password}) => {

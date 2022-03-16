@@ -5,7 +5,7 @@ module.exports = {
   },
   publicRuntimeConfig: {
     apiUrl: process.env.NODE_ENV === 'development'
-      ? 'http://localhost:3000/graphql' // development api
-      : 'http://localhost:3000/graphql' // production api
+      ? 'http://localhost:3000' // development api
+      : 'http://localhost:3000' // production api
   }
 }

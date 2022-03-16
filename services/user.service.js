@@ -19,7 +19,7 @@ export const userService = {
 };
 
 function login(username, password) {
-  return fetchWrapper.post(`${baseUrl}/signup`, { username, password })
+  return fetchWrapper.post(`${baseUrl}/auth/login`, { username, password })
     .then(user => {
       userSubject.next(user);
       localStorage.setItem('user', JSON.stringify(user));
