@@ -2,12 +2,10 @@ import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
-import { alertService } from '../../services/alert.service';
 import { Layout } from '../../components/account/layout';
 import { Link } from '../../components/link';
-import { useEffect } from 'react';
 import { gql, useMutation } from '@apollo/client';
-import { userService } from '../../services/user.service';
+import { login } from '../../lib/users';
 
 const QUERY = gql`
   mutation signup($name: String!, $password: String!) {
@@ -41,20 +39,12 @@ export default function Login() {
     console.error(error);
     return null;
   }
-  if (data) {
-    console.log(data);
-    return userService.login(data.signup.name, "hogehoge")
-      .then(() => {
-        // get return url from query parameters or default to '/'
-        const returnUrl = router.query.returnUrl || '/';
-        router.push(returnUrl);
-      })
-      .catch(alertService.error);
-  }
 
-  const onSubmit = ({username, password}) => {
+  const onSubmit = async ({username, password}) => {
     event.preventDefault();
-    signup({ variables: { name: username, password: password }});
+    await signup({ variables: { name: username, password: password }});
+    await login(username, password);
+    await router.reload("/");
   }
 
   return (
