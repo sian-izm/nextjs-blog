@@ -11,7 +11,8 @@ export default function Register() {
   const router = useRouter();
 
   const validationSchema = Yup.object().shape({
-    userName: Yup.string().required('First Name is required')
+    userName: Yup.string().required('User Name is required'),
+    password: Yup.string().required('Password is required'),
   });
   const formOptions = { resolver: yupResolver(validationSchema) };
 
