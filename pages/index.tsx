@@ -5,6 +5,8 @@ import Link from 'next/link'
 import { getSortedPostsData } from '../lib/posts'
 import Date from '../components/date'
 import { GetStaticProps } from 'next'
+import ClientOnly from '../components/client-only'
+import Logout from '../components/account/logout'
 
 export const getStaticProps: GetStaticProps = async () => {
   const allPostsData = getSortedPostsData()
@@ -57,6 +59,9 @@ export default function Home({
           ))}
         </ul>
       </section>
+      <ClientOnly>
+        <Logout />
+      </ClientOnly>
     </Layout>
   )
 }
