@@ -1,6 +1,9 @@
+import Router from 'next/router';
+
 export default function Logout() {
-  function logout() {
-    console.log('Logout');
+  const logout = async() => {
+    await localStorage.removeItem('user');
+    await Router.push('/account/login');
   }
 
 return (
