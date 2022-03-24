@@ -16,8 +16,3 @@ export async function login(username: string, password: string) {
   const files = await response.json();
   localStorage.setItem('user', JSON.stringify(files.access_token));
 }
-
-export async function logout() {
-  localStorage.removeItem('user');
-  Router.push('/account/login');
-}
