@@ -20,6 +20,7 @@ export default function CatsList() {
   );
 }
 
+
 export const getServerSideProps = withIronSessionSsr(
   async function getServerSideProps({ req }) {
     const user = req.session.user;
