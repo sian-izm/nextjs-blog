@@ -14,10 +14,7 @@ async function loginRoute(req: NextApiRequest, res: NextApiResponse) {
     } = await octokit.res.users.getByName({ username });
 
     const user = { password: "PASSWORD", id: 100 } as User;
-    req.session.user = {
-      id: 230,
-      admin: true,
-    };
+    req.session.user = user;
     await req.session.save();
     res.json(user);
   } catch (error) {
