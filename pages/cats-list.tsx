@@ -4,6 +4,8 @@ import ClientOnly from "../components/client-only";
 import Cats from "../components/cats";
 import CreateCat from "../components/create-cat";
 import { withIronSessionSsr } from "iron-session/next";
+import { sessionOptions } from "../lib/session";
+import { User } from "../pages/api/user";
 
 export default function CatsList() {
   return (
@@ -20,26 +22,23 @@ export default function CatsList() {
   );
 }
 
-export const getServerSideProps = withIronSessionSsr(
-  async function getServerSideProps({ req }) {
-    const user = req.session.user;
+export const getServerSideProps = withIronSessionSsr(async function ({ req, res }) {
+  const user = req.session.user;
 
-    if (user.admin !== true ) {
-      return {
-        notFound: true,
-      };
-    }
+  if (user === undefined) {
+    res.setHeader("location", "/login");
+    res.statusCode = 302;
+    res.end();
     return {
       props: {
-        user: req.session.user,
+        user: { isLoggedIn: false, login: "", avatarUrl: ""} as User,
       },
     };
-  },
-  {
-    cookieName: "hogecookie",
-    password: "update me password",
-    cookieOptions: {
-      secure: process.env.NODE_ENV === "production",
-    }
-  },
-)
+  }
+
+  return {
+    props: {
+      user: req.session.user,
+    },
+  };
+},sessionOptions);
