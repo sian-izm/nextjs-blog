@@ -21,6 +21,7 @@
     "remark": "^14.0.2",
     "remark-html": "^15.0.1",
     "rxjs": "^7.5.4",
+    "swr": "^1.2.2",
     "yup": "^0.32.11"
   },
   "devDependencies": {
