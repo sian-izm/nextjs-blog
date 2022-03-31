@@ -1,7 +1,8 @@
 import { useState } from "react";
 import Layout from "../components/layout";
 import Form from "../components/form";
-import fetchJson, { FetchError } from "lib/fetchJson";
+import fetchJson, { FetchError } from "../lib/fetch-json";
+import useUser from "../lib/use-user";
 
 export default function Login() {
   const { mutateUser } = useUser({
