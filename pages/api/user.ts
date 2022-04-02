@@ -10,12 +10,16 @@ export type User = {
 
 export default withIronSessionApiRoute(userRoute, sessionOptions);
 async function userRoute(req: NextApiRequest, res: NextApiResponse<User>) {
+  console.log("hoge");
   if (req.session.user) {
+    console.log("have session");
     res.json({
       ...req.session.user,
       isLoggedIn: true,
     });
   } else {
+    console.log("No Session");
+
     res.json({
       isLoggedIn: false,
       login: "",
