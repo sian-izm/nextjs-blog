@@ -7,8 +7,8 @@ export default function useUser({
   redirectTo = "",
   redirectIfFound = false,
 } ={}) {
-  const { data: user, mutate: mutateUser } = useSWR<User>("/api/user");
-
+  const { data: user, mutate: mutateUser } = useSWR<User>("/api/users");
+  console.log(user);
   useEffect(() => {
 
     if (!redirectTo || !user) return;
@@ -17,7 +17,7 @@ export default function useUser({
       (redirectTo && !redirectIfFound && !user?.isLoggedIn) || 
       (redirectIfFound && user?.isLoggedIn)
      ){
-      Router.push(redirectTo);
+      //Router.push(redirectTo);
      } 
   }, [user, redirectIfFound, redirectTo]);
 
