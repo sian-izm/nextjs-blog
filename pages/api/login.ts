@@ -7,17 +7,16 @@ const octokit = new Octokit();
 export default withIronSessionApiRoute(loginRoute, sessionOptions);
 
 async function loginRoute(req: NextApiRequest, res: NextApiResponse) {
-  console.log("login routes called");
-
-  const { username } = await req.body;
+  const { username, password } = await req.body;
+  console.log(req.body);
   try {
     const {
       data: { login, avatar_url, id }
     } = await octokit.rest.users.getByUsername({ username });
-    console.log("logged in api called")
-    const user = { isLoggedIn: true, login, avatarUrl: avatar_url, username: username } as User;
+    const user = { isLoggedIn: true, login, avatarUrl: avatar_url, username: username, id: id } as User;
     req.session.user = user;
     await req.session.save();
+    console.log(req.session.user);
     res.json(user);
   } catch (error) {
     res.status(500).json({ message: (error as Error).message });
