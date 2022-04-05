@@ -12,6 +12,7 @@ export default function Form({
       <label>
         <span>Type your GitHub username</span>
         <input type="text" name="username" required />
+        <input type="password" name="password" required />
       </label>
       <button type="submit">Login</button>
 
