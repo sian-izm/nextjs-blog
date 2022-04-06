@@ -3,6 +3,7 @@ import Layout from "../components/layout";
 import Form from "../components/form";
 import fetchJson, { FetchError } from "../lib/fetch-json";
 import useUser from "../lib/use-user";
+import { login } from "../lib/users";
 
 export default function Login() {
   const { mutateUser } = useUser({
@@ -31,6 +32,7 @@ export default function Login() {
                 body: JSON.stringify(body),
               }),
             );
+            await login(body.username, body.password);
           } catch (error) {
             if (error instanceof FetchError) {
               setErrorMsg(error.data.message);
