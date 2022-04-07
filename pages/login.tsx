@@ -18,21 +18,18 @@ export default function Login() {
       <div className="login">
         <Form errorMessage={errorMsg} onSubmit={async function handleSubmit(event){
           event.preventDefault();
-
-          const body = {
-            username: event.currentTarget.username.value,
-            password: event.currentTarget.password.value,
-          };
+          const password = event.currentTarget.password.value;
+          const username = event.currentTarget.username.value;
 
           try {
             mutateUser(
               await fetchJson("/api/login", {
                 method: "POST",
                 headers: { "Content-type": "application/json" },
-                body: JSON.stringify(body),
+                body: JSON.stringify({username: username}),
               }),
             );
-            await login(body.username, body.password);
+            await login(username, password);
           } catch (error) {
             if (error instanceof FetchError) {
               setErrorMsg(error.data.message);

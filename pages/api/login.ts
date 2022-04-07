@@ -8,8 +8,7 @@ const octokit = new Octokit();
 export default withIronSessionApiRoute(loginRoute, sessionOptions);
 
 async function loginRoute(req: NextApiRequest, res: NextApiResponse) {
-  const { username, password } = await req.body;
-  console.log(req.body);
+  const { username } = await req.body;
   try {
     const {
       data: { login, avatar_url, id }
