@@ -3,8 +3,9 @@ import Image from 'next/image'
 import utilStyles from '../styles/utils.module.css'
 import Link from 'next/link'
 import styles from './layout.module.css'
+import Header from './header'
+import useUser from '../lib/use-user'
 
-const name = 'Your Name'
 export const siteTitle = 'Next.js Sample Website'
 
 export default function Layout({
@@ -14,6 +15,13 @@ export default function Layout({
     children: React.ReactNode
     home?: boolean
   }) {
+  const { user, mutateUser } = useUser();
+  if (user?.isLoggedIn === true ) {
+    var name = user.name;
+  } else {
+    var name = "Anonymous";
+  }
+
   return (
     <div className={styles.container}>
       <Head>
@@ -22,6 +30,13 @@ export default function Layout({
           name="description"
           content="Learn how to build a personal website using Next.js"
         />
+        {user?.isLoggedIn === false && (
+          <li>
+            <Link href="/login">
+              <a>Login</a>
+            </Link>
+          </li>
+        )}
         <meta
           property="og:image"
           content={`https://og-image.vercel.app/${encodeURI(
