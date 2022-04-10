@@ -30,13 +30,6 @@ export default function Layout({
           name="description"
           content="Learn how to build a personal website using Next.js"
         />
-        {user?.isLoggedIn === false && (
-          <li>
-            <Link href="/login">
-              <a>Login</a>
-            </Link>
-          </li>
-        )}
         <meta
           property="og:image"
           content={`https://og-image.vercel.app/${encodeURI(
@@ -79,6 +72,13 @@ export default function Layout({
               </Link>
             </h2>
           </>
+        )}
+        {user?.isLoggedIn === false && (
+          <li>
+            <Link href="/login">
+              <a>Login</a>
+            </Link>
+          </li>
         )}
       </header>
       <main>{children}</main>
