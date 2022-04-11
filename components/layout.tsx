@@ -1,10 +1,12 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import utilStyles from '../styles/utils.module.css'
-import Link from 'next/link'
-import styles from './layout.module.css'
-import Header from './header'
-import useUser from '../lib/use-user'
+import Head from 'next/head';
+import Image from 'next/image';
+import utilStyles from '../styles/utils.module.css';
+import Link from 'next/link';
+import styles from './layout.module.css';
+import Header from './header';
+import useUser from '../lib/use-user';
+import fetchJson from '../lib/fetch-json';
+import { useRouter } from 'next/router';
 
 export const siteTitle = 'Next.js Sample Website'
 
@@ -16,9 +18,14 @@ export default function Layout({
     home?: boolean
   }) {
   const { user, mutateUser } = useUser();
+  const router = useRouter();
+
+  console.log(user);
   if (user?.isLoggedIn === true ) {
+    console.log('logged in ');
     var name = user.name;
   } else {
+    console.log("anonymous");
     var name = "Anonymous";
   }
 
@@ -73,14 +80,64 @@ export default function Layout({
             </h2>
           </>
         )}
-        {user?.isLoggedIn === false && (
+        { user === undefined && (
           <li>
             <Link href="/login">
               <a>Login</a>
             </Link>
           </li>
         )}
+
+        {user?.isLoggedIn === true && (
+          <>
+            <li>
+              <Link href="/profile-sg">
+                <a>
+                  <span
+                    style={{
+                      marginRight: ".3em",
+                      verticalAlign: "middle",
+                      borderRadius: "100%",
+                      overflow: "hidden",
+                    }}
+                  >
+                    <Image
+                      src={user.avatarUrl}
+                      width={32}
+                      height={32}
+                      alt=""
+                    />
+                  </span>
+                  Profile (Static Generation, recommended)
+                </a>
+              </Link>
+            </li>
+            <li>
+              <Link href="/profile-ssr">
+                <a>Profile (Server-side Rendering)</a>
+              </Link>
+            </li>
+            <li>
+              {/* In this case, we're fine with linking with a regular a in case of no JavaScript */}
+              {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
+              <a
+                href="/api/logout"
+                onClick={async (e) => {
+                  e.preventDefault();
+                  mutateUser(
+                    await fetchJson("/api/logout", { method: "POST" }),
+                    false,
+                  );
+                  router.push("/login");
+                }}
+              >
+                Logout
+              </a>
+            </li>
+          </>
+        )}
       </header>
+
       <main>{children}</main>
       {!home && (
         <div className={styles.backToHome}>
