@@ -20,12 +20,9 @@ export default function Layout({
   const { user, mutateUser } = useUser();
   const router = useRouter();
 
-  console.log(user);
   if (user?.isLoggedIn === true ) {
-    console.log('logged in ');
     var name = user.name;
   } else {
-    console.log("anonymous");
     var name = "Anonymous";
   }
 
