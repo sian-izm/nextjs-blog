@@ -78,11 +78,9 @@ export default function Layout({
           </>
         )}
         { user === undefined && (
-          <li>
-            <Link href="/login">
-              <a>Login</a>
-            </Link>
-          </li>
+          <Link href="/login">
+            <a>Login</a>
+          </Link>
         )}
 
         {user?.isLoggedIn === true && (
