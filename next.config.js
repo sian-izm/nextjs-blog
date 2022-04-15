@@ -7,5 +7,8 @@ module.exports = {
     apiUrl: process.env.NODE_ENV === 'development'
       ? 'http://localhost:3000' // development api
       : 'http://localhost:3000' // production api
-  }
+  },
+  images: {
+    domains: ['avatars.githubusercontent.com']
+  },
 }
