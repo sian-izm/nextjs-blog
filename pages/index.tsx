@@ -37,10 +37,6 @@ export default function Home({
           (This is a sample website - you'll be building a site like this on{' '}
           <a href="https://nextjs.org/learn">our Next.js tutorial</a>.)
         </p>
-        Visit my {' '}
-        <Link href="/posts/first-post">
-          <a>First Post</a>
-        </Link>
       </section>
 
       <section className={`${utilStyles.heading} ${utilStyles.padding1px}`}>
