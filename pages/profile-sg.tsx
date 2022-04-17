@@ -6,7 +6,7 @@ export default function SgProfile() {
   const { user } = useUser({
     redirectTo: "/login",
   });
-  const { events } useEvents(user);
+  const { events } = useEvents(user);
 
   return (
     <Layout>
