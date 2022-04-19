@@ -3,7 +3,6 @@ import Image from 'next/image';
 import utilStyles from '../styles/utils.module.css';
 import Link from 'next/link';
 import styles from './layout.module.css';
-import Header from './header';
 import useUser from '../lib/use-user';
 import fetchJson from '../lib/fetch-json';
 import { useRouter } from 'next/router';
@@ -12,14 +11,13 @@ export const siteTitle = 'Next.js Sample Website'
 
 export default function Layout({
    children,
-   home
+   home,
   }: {
     children: React.ReactNode
     home?: boolean
   }) {
   const { user, mutateUser } = useUser();
   const router = useRouter();
-
   if (user?.isLoggedIn === true ) {
     var name = user.name;
   } else {
