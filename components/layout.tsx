@@ -42,39 +42,40 @@ export default function Layout({
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
       <header className={styles.header}>
-        {home? (
-          <>
-            <Image
-              priority
-              src="/images/profile.jpg"
-              className={utilStyles.borderCircle}
-              height={144}
-              width={144}
-              alt={name}
-            />
-            <h1 className={utilStyles.heading2Xl}>{name}</h1>
-          </>
-        ) : (
-          <>
-            <Link href="/">
-              <a>
-                <Image
-                  priority
-                  src="/images/profile.jpg"
-                  className={utilStyles.borderCircle}
-                  height={108}
-                  width={108}
-                  alt={name}
-                />
-              </a>
-            </Link>
-            <h2 className={utilStyles.headingLg}>
+        {user?.isLoggedIn === true &&
+          (home? (
+            <>
+              <Image
+                priority
+                src={user.avatarUrl}
+                height={144}
+                width={144}
+                alt={name}
+              />
+              <h1 className={utilStyles.heading2Xl}>{name}</h1>
+            </>
+            ) : (
+            <>
               <Link href="/">
-                <a className={utilStyles.colorInherit}>{name}</a>
+                <a>
+                  <Image
+                    priority
+                    src={user.avatarUrl}
+                    height={108}
+                    width={108}
+                    alt={name}
+                  />
+                </a>
               </Link>
-            </h2>
-          </>
-        )}
+              <h2 className={utilStyles.headingLg}>
+                <Link href="/">
+                  <a className={utilStyles.colorInherit}>{name}</a>
+                </Link>
+              </h2>
+            </>
+            )
+          )
+        }
         { user === undefined && (
           <Link href="/login">
             <a>Login</a>
@@ -93,12 +94,6 @@ export default function Layout({
                     overflow: "hidden",
                   }}
                 >
-                  <Image
-                    src={user.avatarUrl}
-                    width={32}
-                    height={32}
-                    alt=""
-                  />
                 </span>
                 Profile (Static Generation, recommended)
               </a>
