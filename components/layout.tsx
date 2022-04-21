@@ -81,7 +81,7 @@ export default function Layout({
             <Link href="/login">
               <a>Login</a>
             </Link>
-            <Link href="/account/login">
+            <Link href="/account/register">
               <a>Register</a>
             </Link>
           </>
