@@ -3,7 +3,7 @@ import Router from 'next/router';
 export default function Logout() {
   const logout = async() => {
     await localStorage.removeItem('user');
-    await Router.push('/account/login');
+    await Router.push('/login');
   }
 
 return (
