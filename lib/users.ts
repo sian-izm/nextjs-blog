@@ -14,5 +14,5 @@ export async function login(username: string, password: string) {
 
   const response = await fetch(loginUrl, requestOptions);
   const files = await response.json();
-  localStorage.setItem('user', JSON.stringify(files.access_token));
+  console.log(files.access_token);
 }
