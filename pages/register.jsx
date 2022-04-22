@@ -1,13 +1,13 @@
-import { userService } from "../../services/user.service";
-import { alertService } from "../../services/alert.service";
+// import { userService } from "../services/user.service";
+// import { alertService } from "../services/alert.service";
 import { useRouter } from "next/router";
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Link } from '../../components/link';
-import { Layout } from '../../components/account/layout';
+import { Link } from '../components/link';
+import { Layout } from '../components/account/layout';
 import { useForm } from "react-hook-form";
 import { useMutation, gql } from "@apollo/client";
-import { login } from '../../lib/users';
+import { login } from '../lib/users';
 
 const QUERY = gql`
   mutation signup($name: String!, $password: String!) {
@@ -66,7 +66,7 @@ export default function Register() {
               {formState.isSubmitting && <span className="spinner-border spinner-border-sm mr-1"></span>}
               Register
             </button>
-            <Link href="/account/login" className="btn btn-link">Cancel</Link>
+            <Link href="/login" className="btn btn-link">Cancel</Link>
           </form>
         </div>
       </div>
