@@ -4,6 +4,7 @@ import Form from "../components/form";
 import fetchJson, { FetchError } from "../lib/fetch-json";
 import useUser from "../lib/use-user";
 import { login } from "../lib/users";
+import { useRouter } from "next/router";
 
 export default function Login() {
   const { mutateUser } = useUser({
@@ -11,6 +12,7 @@ export default function Login() {
     redirectIfFound: true,
   });
 
+  const router = useRouter();
   const [errorMsg, setErrorMsg] = useState("");
 
   return (
@@ -30,6 +32,7 @@ export default function Login() {
               }),
             );
             await login(username, password);
+            await router.push("/");
           } catch (error) {
             if (error instanceof FetchError) {
               setErrorMsg(error.data.message);
