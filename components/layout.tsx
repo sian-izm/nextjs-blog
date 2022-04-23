@@ -18,11 +18,6 @@ export default function Layout({
   }) {
   const { user, mutateUser } = useUser();
   const router = useRouter();
-  if (user?.isLoggedIn === true ) {
-    var name = user.name;
-  } else {
-    var name = "Anonymous";
-  }
 
   return (
     <div className={styles.container}>
@@ -51,9 +46,9 @@ export default function Layout({
                 className={utilStyles.borderCircle}
                 height={144}
                 width={144}
-                alt={name}
+                alt={user.name}
               />
-              <h1 className={utilStyles.heading2Xl}>{name}</h1>
+              <h1 className={utilStyles.heading2Xl}>{user.name}</h1>
             </>
             ) : (
             <>
@@ -65,20 +60,20 @@ export default function Layout({
                     className={utilStyles.borderCircle}
                     height={108}
                     width={108}
-                    alt={name}
+                    alt={user.name}
                   />
                 </a>
               </Link>
               <h2 className={utilStyles.headingLg}>
                 <Link href="/">
-                  <a className={utilStyles.colorInherit}>{name}</a>
+                  <a className={utilStyles.colorInherit}>{user.name}</a>
                 </Link>
               </h2>
             </>
             )
           )
         }
-        { user === undefined && (
+        {(user === undefined || user?.isLoggedIn === false) && (
           <>
             <Link href="/login">
               <a>Login</a>
