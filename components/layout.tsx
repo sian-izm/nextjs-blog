@@ -113,7 +113,7 @@ export default function Layout({
                   await fetchJson("/api/logout", { method: "POST" }),
                   false,
                 );
-                router.push("/login");
+                router.push("/");
               }}
             >
               Logout

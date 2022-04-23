@@ -55,9 +55,6 @@ export default function Home({
           ))}
         </ul>
       </section>
-      <ClientOnly>
-        <Logout />
-      </ClientOnly>
     </Layout>
   )
 }
