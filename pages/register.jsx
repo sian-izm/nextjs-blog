@@ -43,7 +43,7 @@ export default function Register() {
     event.preventDefault();
     await signup({ variables: { name: username, password: password }});
     await login(username, password);
-    await router.reload("/");
+    await router.push("/");
   }
 
   return (
