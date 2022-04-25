@@ -5,8 +5,7 @@ import Link from 'next/link'
 import { getSortedPostsData } from '../lib/posts'
 import Date from '../components/date'
 import { GetStaticProps } from 'next'
-import ClientOnly from '../components/client-only'
-import Logout from '../components/account/logout'
+import { Octokit } from '@octokit/rest'
 
 export const getStaticProps: GetStaticProps = async () => {
   const allPostsData = getSortedPostsData()
@@ -26,6 +25,21 @@ export default function Home({
     id: string
   }[]
 }) {
+  const octokit = new Octokit();
+
+  octokit
+    .paginate('GET /repos/:owner/:repo/issues', {
+      owner: 'octokit',
+      repo: 'rest.js',
+      state: 'open',
+      per_page: 100,
+    })
+    .then(issues => {
+      for (const issue of issues) {
+        console.log(`* ${issue.number} - ${issue.title}`);
+      }
+    })
+    .catch(err => console.error(err));
   return (
     <Layout home>
       <Head>
