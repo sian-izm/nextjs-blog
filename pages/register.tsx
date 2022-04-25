@@ -1,5 +1,3 @@
-// import { userService } from "../services/user.service";
-// import { alertService } from "../services/alert.service";
 import { useRouter } from "next/router";
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
