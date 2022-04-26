@@ -6,6 +6,8 @@ import { getSortedPostsData } from '../lib/posts'
 import Date from '../components/date'
 import { GetStaticProps } from 'next'
 import { Octokit } from '@octokit/rest'
+import ClientOnly from '../components/client-only'
+import GithubIssues from '../components/github-issues'
 
 export const getStaticProps: GetStaticProps = async () => {
   const allPostsData = getSortedPostsData()
@@ -69,6 +71,9 @@ export default function Home({
           ))}
         </ul>
       </section>
+      <ClientOnly>
+        <GithubIssues />
+      </ClientOnly>
     </Layout>
   )
 }
